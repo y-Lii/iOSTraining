@@ -7,6 +7,7 @@
 //
 
 #import "MixiNiceViewController.h"
+#import "UIViewController+NiceAnimation.h"
 
 @interface MixiNiceViewController()
 
@@ -36,16 +37,24 @@
         [sampleImages addObject:img];
     }
 
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close"
-                                                                              style:UIBarButtonItemStyleBordered
+    if(self.navigationController) {
+        self.navigationItem.title = [NSString stringWithFormat:@"View %d", [self.navigationController.viewControllers count]];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close"
+                                                                              style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(clickClose:)];
 
+    }
+    
 	static int index;
 	index++;
 
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[sampleImages objectAtIndex:index%allImageCount]];
     // insertSubview と addSubViewの違いを探してみましょう
+    // 理解
+    // [self.view addSubview:imageView]
+    //  ==
+    // [self.view insertSubview:imageView atIndex:[self.view.subviews count]];
 	[self.view insertSubview:imageView atIndex:0];
 
 // TODO: XIB上にある二つの各ボタンのTouchUpInsideイベントに　clickModalView：　と　clickPush:　を連結しましょう
@@ -58,30 +67,49 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    NSLog(@"viewWillAppear");
 	[super viewWillAppear:animated];
 // TODO : UIViewController+NiceAnimation にある関数を使って、いい感じの遷移になるようにしましょう
+    if(self.navigationController) {
+        [self animationPushBackScaleDown];
+    }
+}
+
+- (void) viewWillDisappear:(BOOL)animated {
+    NSLog(@"viewWillDisAppear");
+    //効果見えない
+    [self animationPopFront];
+    [super viewWillDisappear:animated];
 }
 
 - (IBAction)clickPush:(id)sender
 {
 	MixiNiceViewController *viewController = [[MixiNiceViewController alloc] init];
+
 // TODO :　hint-> pushViewController: animation:
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (IBAction)clickModalView:(id)sender
 {
 	MixiNiceViewController *viewController = [[MixiNiceViewController alloc] init];
 
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    //UINavigationController *navController = [[UINavigationController alloc] initWithNibName:@"MixiNiceViewController" bundle:nil];
+    //[navController pushViewController:viewController animated:YES];
+
 // TODO :　hint-> presentViewController: animation:
+    [self presentViewController:navController animated:YES completion:nil];
 
 
 // TODO : UIViewController+NiceAnimation にある関数を使って、いい感じの遷移になるようにしましょう
+    //viewWillAppearの中でanimationがあるから、ここのanimationが不要
+    //[viewController animationPushBackScaleDown];
 }
 
 - (void)clickClose:(id)sender
 {
 // TODO : hint-> dismissViewControllerAnimated:
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
-
-
 @end

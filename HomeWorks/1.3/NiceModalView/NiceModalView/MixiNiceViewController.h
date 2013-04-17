@@ -10,4 +10,7 @@
 
 @interface MixiNiceViewController : UIViewController
 
+- (IBAction)clickModalView:(id)sender;
+- (IBAction)clickPush:(id)sender;
+
 @end

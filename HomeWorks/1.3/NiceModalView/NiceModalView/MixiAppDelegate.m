@@ -19,10 +19,10 @@
 
     // TODO: MixiNiceViewControllerを XIBファイルを使って初期化します。
     // self.viewController =
-	self.viewController = [[MixiNiceViewController alloc] initWithNibName:@"MixiNiceViewController" bundle:nil];
+	_viewController = [[MixiNiceViewController alloc] initWithNibName:@"MixiNiceViewController" bundle:nil];
 
     // TODO: 生成した self.viewControllerを　windowのRootViewControllerとして設定します。
-	self.window.rootViewController = self.viewController;
+    self.window.rootViewController = _viewController;
 
     [self.window makeKeyAndVisible];
     return YES;
