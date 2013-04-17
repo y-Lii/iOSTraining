@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "TestQueue.h"
+#import "TestStack.h"
 
 @interface ViewController ()
 
@@ -27,7 +29,7 @@ NSArray* getSampleArray() {
 }
 
 NSMutableArray* getSampleMutableArray() {
-    NSMutableArray *mArr1 = [[NSMutableArray alloc] init];
+    NSMutableArray *mArr1 = [NSMutableArray array];
     NSMutableDictionary *mDic1 = [[NSMutableDictionary alloc] init];
     mDic1[@"domain"] = @"mixi.jp";
     mDic1[@"entry"]  = @[ @"list_voice.pl", @"list_diary.pl", @"list_mymall_item.pl" ];
@@ -50,6 +52,36 @@ NSMutableArray* getSampleMutableArray() {
     return mArr1;
 }
 
+void testTestQueue() {
+    TestQueue *queue = [[TestQueue alloc ]init];
+
+    [queue push:@1];
+    [queue push:@"2"];
+    [queue push:@[ @1, @2, @"3" ]];
+
+    NSLog(@"queue: %@, size: %d", queue, [queue size]);
+
+    NSLog(@"pop: %@, size: %d", [queue pop], [queue size]);
+    NSLog(@"pop: %@, size: %d", [queue pop], [queue size]);
+    NSLog(@"pop: %@, size: %d", [queue pop], [queue size]);
+    NSLog(@"pop: %@, size: %d", [queue pop], [queue size]);
+}
+
+void testTestStack() {
+    TestStack *stack = [[TestStack alloc ]init];
+
+    [stack push:@1];
+    [stack push:@"2"];
+    [stack push:@[ @1, @2, @"3" ]];
+
+    NSLog(@"stack: %@, size: %d", stack, [stack size]);
+
+    NSLog(@"pop: %@, size: %d", [stack pop], [stack size]);
+    NSLog(@"pop: %@, size: %d", [stack pop], [stack size]);
+    NSLog(@"pop: %@, size: %d", [stack pop], [stack size]);
+    NSLog(@"pop: %@, size: %d", [stack pop], [stack size]);
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -60,6 +92,12 @@ NSMutableArray* getSampleMutableArray() {
     NSMutableArray *mArr = getSampleMutableArray();
 
     NSLog(@"\n%@\n%@", arr, mArr);
+
+    NSLog(@"test TestQueue");
+    testTestQueue();
+
+    NSLog(@"test TestStack");
+    testTestStack();
 }
 
 - (void)didReceiveMemoryWarning

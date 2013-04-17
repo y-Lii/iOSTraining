@@ -18,6 +18,8 @@
 		5405EF19171D454500C6E9F5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5405EF18171D454500C6E9F5 /* Default-568h@2x.png */; };
 		5405EF1C171D454500C6E9F5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5405EF1B171D454500C6E9F5 /* ViewController.m */; };
 		5405EF1F171D454500C6E9F5 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5405EF1D171D454500C6E9F5 /* ViewController.xib */; };
+		D0BF63F5171E41B400036099 /* TestQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BF63F4171E41B400036099 /* TestQueue.m */; };
+		D0BF63F8171E4F8500036099 /* TestStack.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BF63F7171E4F8500036099 /* TestStack.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,8 +37,12 @@
 		5405EF16171D454500C6E9F5 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		5405EF18171D454500C6E9F5 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		5405EF1A171D454500C6E9F5 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		5405EF1B171D454500C6E9F5 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		5405EF1B171D454500C6E9F5 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5405EF1E171D454500C6E9F5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+		D0BF63F3171E41B400036099 /* TestQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TestQueue.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		D0BF63F4171E41B400036099 /* TestQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TestQueue.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D0BF63F6171E4F8500036099 /* TestStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestStack.h; path = ../TestStack.h; sourceTree = "<group>"; };
+		D0BF63F7171E4F8500036099 /* TestStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestStack.m; path = ../TestStack.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +93,10 @@
 				5405EF12171D454500C6E9F5 /* AppDelegate.m */,
 				5405EF1A171D454500C6E9F5 /* ViewController.h */,
 				5405EF1B171D454500C6E9F5 /* ViewController.m */,
+				D0BF63F3171E41B400036099 /* TestQueue.h */,
+				D0BF63F4171E41B400036099 /* TestQueue.m */,
+				D0BF63F6171E4F8500036099 /* TestStack.h */,
+				D0BF63F7171E4F8500036099 /* TestStack.m */,
 				5405EF1D171D454500C6E9F5 /* ViewController.xib */,
 				5405EF09171D454500C6E9F5 /* Supporting Files */,
 			);
@@ -176,6 +186,8 @@
 				5405EF0F171D454500C6E9F5 /* main.m in Sources */,
 				5405EF13171D454500C6E9F5 /* AppDelegate.m in Sources */,
 				5405EF1C171D454500C6E9F5 /* ViewController.m in Sources */,
+				D0BF63F5171E41B400036099 /* TestQueue.m in Sources */,
+				D0BF63F8171E4F8500036099 /* TestStack.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,6 +310,7 @@
 				5405EF24171D454500C6E9F5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
