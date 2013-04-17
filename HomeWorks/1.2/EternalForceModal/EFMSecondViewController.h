@@ -10,13 +10,18 @@
 
 // TODO
 // delegateのためのプロトコルを定義
-@protocol EMFSecondViewControllerDelegate <NSObject>
+@protocol EFMSecondViewControllerDelegate <NSObject>
 
 // ここにDelegateメソッドの定義
+- (void) pressedCloseModalBtn;
 
 @end
 
 
 @interface EFMSecondViewController : UIViewController
-@property (nonatomic, weak) id<EMFSecondViewControllerDelegate> delegate;
+
+@property (nonatomic, weak) id<EFMSecondViewControllerDelegate> delegate;
+
+- (IBAction)closeButtonTapped:(id)sender;
+
 @end

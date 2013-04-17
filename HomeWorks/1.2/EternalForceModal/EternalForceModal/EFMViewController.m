@@ -7,6 +7,7 @@
 //
 
 #import "EFMViewController.h"
+#import "EFMSecondViewController.h"
 
 @interface EFMViewController ()
 
@@ -26,17 +27,29 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+void showModalView(EFMViewController *parentView) {
+    EFMSecondViewController *secondView = [[EFMSecondViewController alloc] init];
+    secondView.delegate = parentView;
+    [parentView presentViewController:secondView animated:YES completion:nil];
+}
+
 - (IBAction)buttonTapped:(id)sender {
 
-    EFMSecondViewController *secondViewController = [[EFMSecondViewController alloc] initWithNibName:@"EFMSecondViewController" bundle:nil];
+    // EFMSecondViewController *secondViewController = [[EFMSecondViewController alloc] initWithNibName:@"EFMSecondViewController" bundle:nil];
     // TODO secondViewControllerのdelegateを自分にセット
     // TODO [self presentViewController:￼ animated:￼ completion:￼] を呼ぶ
 
+    showModalView(self);
 }
 
 #pragma EMFSecondViewController delegate
 // TODO EFMSecondViewController の delegateメソッドを実装
 
-
+- (void) pressedCloseModalBtn {
+    [self dismissViewControllerAnimated:YES completion:^{
+        showModalView(self);
+    }];
+}
 
 @end
