@@ -24,6 +24,7 @@
     self.tabBarController.viewControllers = @[viewController1, viewController2];
 
     // TODO : tabBarController の delegateを自分にセット
+    _tabBarController.delegate = self;
 
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
@@ -71,16 +72,65 @@
 }
 */
 
+- (void) pressCloseBtn {
+    [_tabBarController dismissViewControllerAnimated:YES completion:nil];
+}
 
-/*
 // TODO
 // コメントアウトをはずすと、タブがタップされた時にこのメソッドが呼ばれます
 // YESを返すとタブが選択され、NOを返すと選択されません
 // モーダルを出したい時はモーダルを表示してNOを返してください
+
+/*
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
 {
+    NSLog(@"1. %d", [tabBarController.viewControllers count]);
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:viewController];
 
+    // TODO ここが変
+    NSLog(@"2. %d", [tabBarController.viewControllers count]);
+
+    UIBarButtonItem *rBtnItem = [[UIBarButtonItem alloc] initWithTitle:@"close"
+                                                                 style:UIBarButtonItemStylePlain
+                                                                target:self
+                                                                action:@selector(pressCloseBtn)];
+    viewController.navigationItem.rightBarButtonItem = rBtnItem;
+    
+    [tabBarController presentViewController:nav animated:YES completion:nil];
+
+
+    // TODO
+    [tabBarController addChildViewController:viewController];
+
+
+    NSLog(@"3. %d", [tabBarController.viewControllers count]);
+    
+    return NO;
 }
 */
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
+{
+    if(viewController == tabBarController.selectedViewController) {
+        return NO;
+    }
+    
+    if(!_modalViewController) {
+        _modalViewController = [[MFTModalViewController alloc] init];
+    }
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:_modalViewController];
+
+    UIBarButtonItem *rBtnItem = [[UIBarButtonItem alloc] initWithTitle:@"close"
+                                                                 style:UIBarButtonItemStylePlain
+                                                                target:self
+                                                                action:@selector(pressCloseBtn)];
+    viewController.navigationItem.rightBarButtonItem = rBtnItem;
+
+    [tabBarController presentViewController:nav animated:YES completion:nil];
+    
+    return NO;
+}
 
 @end

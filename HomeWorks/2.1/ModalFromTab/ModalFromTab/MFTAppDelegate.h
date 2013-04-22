@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class MFTModalViewController;
+
 @interface MFTAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic) UITabBarController *tabBarController;
+
+@property (strong, nonatomic) MFTModalViewController *modalViewController;
 
 @end
