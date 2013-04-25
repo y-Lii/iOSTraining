@@ -29,10 +29,13 @@ static NSTimeInterval const kDefaultOrientationAnimationDuration = 0.4;
 {
     [super viewDidAppear:animated];
     // ⬇Answer：
+    // UIDeviceOrientationDidChangeNotification通知を登録する
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(orientationDidChangeNotification:)
-                                                 name:UIDeviceOrientationDidChangeNotification object:nil];
-    // ⬇Answer：    
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+    // ⬇Answer：
+    // 画面回転の通知を受け始める
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
 }
 
@@ -40,14 +43,17 @@ static NSTimeInterval const kDefaultOrientationAnimationDuration = 0.4;
 {
     [super viewWillDisappear:animated];
     // ⬇Answer：
+    // viewが非表示するので、通知の登録を削除する
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
     // ⬇Answer：
+    // 通知の受け取りを停止する
     [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
 }
 
 - (NSUInteger)supportedInterfaceOrientations
 {
-    // ⬇Answer：    
+    // ⬇Answer：
+    // むー
     return UIInterfaceOrientationMaskPortrait;
 }
 
@@ -90,10 +96,12 @@ static NSTimeInterval const kDefaultOrientationAnimationDuration = 0.4;
 
     if(([UIDevice currentDevice].orientation == UIInterfaceOrientationPortrait)
        || [self isParentSupportingInterfaceOrientation:(UIInterfaceOrientation)[UIDevice currentDevice].orientation]) {
+        NSLog([UIDevice currentDevice].orientation == UIInterfaceOrientationPortrait ? @"==Portrait" : @"==parentSupportingInterfaceOrientation");
         transform = CGAffineTransformIdentity;
     }else {
         switch ([UIDevice currentDevice].orientation){
             case UIInterfaceOrientationLandscapeLeft:
+                NSLog(@"LanscapeLeft %@ %d %d", self.parentViewController, self.parentViewController.interfaceOrientation, UIInterfaceOrientationMaskLandscapeLeft);
                 if(self.parentViewController.interfaceOrientation == UIInterfaceOrientationPortrait) {
                     transform = CGAffineTransformMakeRotation(-M_PI_2);
                 }else {
@@ -102,6 +110,7 @@ static NSTimeInterval const kDefaultOrientationAnimationDuration = 0.4;
                 break;
 
             case UIInterfaceOrientationLandscapeRight:
+                NSLog(@"LanscapeRight %@ %d %d", self.parentViewController, self.parentViewController.interfaceOrientation, UIInterfaceOrientationMaskLandscapeRight);
                 if(self.parentViewController.interfaceOrientation == UIInterfaceOrientationPortrait) {
                     transform = CGAffineTransformMakeRotation(M_PI_2);
                 }else {
@@ -110,10 +119,12 @@ static NSTimeInterval const kDefaultOrientationAnimationDuration = 0.4;
                 break;
 
             case UIInterfaceOrientationPortrait:
+                NSLog(@"Portrait");
                 transform = CGAffineTransformIdentity;
                 break;
 
             case UIInterfaceOrientationPortraitUpsideDown:
+                NSLog(@"PortaitUpsideDown");
                 transform = CGAffineTransformMakeRotation(M_PI);
                 break;
 
@@ -123,6 +134,8 @@ static NSTimeInterval const kDefaultOrientationAnimationDuration = 0.4;
                 return;
         }
     }
+
+    NSLog(@"%@", self.contentView);
 
     CGRect frame = CGRectZero;
     if(animated) {
@@ -142,6 +155,7 @@ static NSTimeInterval const kDefaultOrientationAnimationDuration = 0.4;
 
 #pragma mark - Notifications
 // ⬇Answer：こちはいつ呼ばれますか？
+// デバイスが回転されるたびに
 - (void)orientationDidChangeNotification:(NSNotification *)notification
 {
     [self updateOrientationAnimated:YES];

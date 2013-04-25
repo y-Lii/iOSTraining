@@ -21,11 +21,46 @@
 
     self.focusManager = [[FocusManager alloc] init];
     self.focusManager.delegate = self;
+
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        for (UIImageView *img in _images) {
+            [self.focusManager installOnView:img];
+        }
+        [self performSelector:@selector(sizeToFitOfImages)
+                   withObject:nil
+                   afterDelay:0.05f];
+        [self sizeToFitOfImages];
+    }
 }
 
 - (NSUInteger)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskAll;
+}
+
+- (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [self sizeToFitOfImages];
+    }
+}
+
+- (void) sizeToFitOfImages {
+    NSLog(@"fiting");
+    float y = 0;
+    float x = 10;
+    for (UIImageView *img in _images) {
+        [img sizeToFit];
+        CGRect frame = img.frame;
+        if(y + frame.size.height > self.view.frame.size.height) {
+            y = 0;
+            x += frame.size.width + 10;
+        }
+        frame.origin.y = y;
+        frame.origin.x = x;
+        img.frame = frame;
+
+        y += frame.size.height + 10;
+    }
 }
 
 #pragma mark - FocusDelegate

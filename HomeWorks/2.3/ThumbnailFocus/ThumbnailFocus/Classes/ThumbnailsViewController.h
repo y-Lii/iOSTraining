@@ -20,4 +20,8 @@
 */
 
 @interface ThumbnailsViewController : UIViewController<FocusDelegate>
+{
+    IBOutletCollection(UIImageView) NSArray *_images;
+}
+
 @end

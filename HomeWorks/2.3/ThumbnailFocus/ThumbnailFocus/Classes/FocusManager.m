@@ -66,7 +66,13 @@ static CGFloat const kAnimationDuration = 0.5;
     self.focusViewController = focusViewController;
     self.mediaView = gesture.view;
     UIViewController *parentViewController = [self.delegate parentViewControllerForFocusManager];
+
+    //question: why did this?
+    // didn't call [focusViewController didMoveToParentViewController:parentViewController];
     [parentViewController addChildViewController:focusViewController];
+    // ☝の処理でself.focusViewControllerのparentViewControllerがparentViewControllerになる
+    NSLog(@"parentViewController: %@", self.focusViewController.parentViewController);
+
     [parentViewController.view addSubview:focusViewController.view];
     focusViewController.view.frame = parentViewController.view.bounds;
     _mediaView.hidden = YES;
@@ -77,14 +83,19 @@ static CGFloat const kAnimationDuration = 0.5;
     imageView.bounds = _mediaView.bounds;
     
     self.isZooming = YES;
-#warning ★HomeWork：余裕がある方はZoomアニメーションも作って見てみてください。
+#warning ★HomeWork：余裕がある方はZoomアニメーションも作って見てみてください。//DONE
     [UIView animateWithDuration:kAnimationDuration
                      animations:^{
                          focusViewController.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8];
                      }
                      completion:^(BOOL finished) {
-                             [self installZoomView];
-                             self.isZooming = NO;                         
+                         [UIView animateWithDuration:kAnimationDuration
+                                          animations:^{
+                                              [self installZoomView];
+                                          }
+                                          completion:^(BOOL finished) {
+                                              self.isZooming = NO;
+                                          }];
                      }];
 }
 
@@ -95,7 +106,10 @@ static CGFloat const kAnimationDuration = 0.5;
     self.focusViewController.scrollView = scrollView;
     [self.focusViewController.contentView addSubview:scrollView];
     [scrollView displayImage:self.focusViewController.mainImageView.image];
-    self.focusViewController.mainImageView.hidden = YES;
+
+    // use not hidden but alpha for animation
+    //self.focusViewController.mainImageView.hidden = YES;
+    self.focusViewController.mainImageView.alpha = 0.0;
 }
 
 - (void)uninstallZoomView
@@ -104,7 +118,7 @@ static CGFloat const kAnimationDuration = 0.5;
     CGRect frame = [contentView convertRect:self.focusViewController.scrollView.zoomImageView.frame
                                    fromView:self.focusViewController.scrollView];
     self.focusViewController.scrollView.hidden = YES;
-    self.focusViewController.mainImageView.hidden = NO;
+    self.focusViewController.mainImageView.alpha = 1.0;
     self.focusViewController.mainImageView.frame = frame;
 }
 
