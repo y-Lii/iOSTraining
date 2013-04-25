@@ -26,12 +26,17 @@
     // Configure the view for the selected state
 }
 
--(CGFloat)calculateCellHeightWithText:(NSString *)text
++ (CGFloat)calculateCellHeightWithText:(NSString *)text
 {
     // TODO : UILabel の高さ計算 [2]
     // HINT : (CGSize)sizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size lineBreakMode:(NSLineBreakMode)lineBreakMode
 
     CGSize size;
+
+    CGSize bounds = CGSizeMake(223, CGFLOAT_MAX);
+    size = [text sizeWithFont:[UIFont fontWithName:@"Helvetica" size:23]
+            constrainedToSize:bounds
+                lineBreakMode:NSLineBreakByWordWrapping];
 
     CGFloat top = 20.0f;
     CGFloat bottom = 20.0f;

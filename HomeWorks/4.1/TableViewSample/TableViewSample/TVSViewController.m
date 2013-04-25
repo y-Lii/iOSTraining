@@ -12,8 +12,6 @@
 
 @interface TVSViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-@property (strong, nonatomic) TVSCustomCell *cellForCalcHeight;
 @property (strong, nonatomic) NSArray *texts;
 @end
 
@@ -28,9 +26,9 @@
     _tableView.delegate = self;
     [_tableView registerNib:[UINib nibWithNibName:@"TVSCustomCell" bundle:nil] forCellReuseIdentifier:@"maimai"];
 
-    _cellForCalcHeight = [_tableView dequeueReusableCellWithIdentifier:@"maimai"];
-
     //TODO : samplData.plist から NSArray を作成しましょう [1]
+    NSString* plistPath = [[NSBundle mainBundle] pathForResource:@"sampleData" ofType:@"plist"];
+    _texts = [NSArray arrayWithContentsOfFile:plistPath];
 }
 
 - (void)didReceiveMemoryWarning
@@ -42,7 +40,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //TODO : cellForCalcHeight の高さ計算メソッドを使って高さを計算しましょう
-    return 10;
+    return [TVSCustomCell calculateCellHeightWithText:(NSString *)_texts[indexPath.row]];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

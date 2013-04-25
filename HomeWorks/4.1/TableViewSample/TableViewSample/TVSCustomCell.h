@@ -11,6 +11,6 @@
 @interface TVSCustomCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *bodyLabel;
 
--(CGFloat)calculateCellHeightWithText:(NSString *)text;
++ (CGFloat)calculateCellHeightWithText:(NSString *)text;
 
 @end
